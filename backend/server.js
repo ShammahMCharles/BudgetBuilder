@@ -16,7 +16,8 @@ const purchaseItemRoutes = require("./routes/purchaseItemRoutes");
 
 const app = express();
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT 
+// const PORT = process.env.PORT || 3001;
 
 //Middleware
 app.use(cors());

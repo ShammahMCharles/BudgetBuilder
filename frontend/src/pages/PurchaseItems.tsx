@@ -28,23 +28,15 @@ function PurchaseItems() {
   const [form, setForm] = useState({
     name: "",
     price: "",
-    category: "Other",
-    priority: "Medium",
+    category: "other",
+    priority: "medium",
     monthlyPayment: "",
     downPayment: "",
     notes: "",
   });
 
   const loadItems = async () => {
-    if (!token) return;
-
-      if (loading) {
-        return (
-          <div className="flex min-h-screen items-center justify-center bg-slate-950 text-white">
-            <p className="text-lg">Loading your purchase items...</p>
-          </div>
-        );
-      }
+    if (!token || loading) return;
 
     try {
       const data = await getPurchaseItems(token);
@@ -52,9 +44,9 @@ function PurchaseItems() {
       setItems(
         Array.isArray(data) ? data : data.purchaseItems || data.items || [],
       );
-    } catch (err) {
+    } catch (error) {
       setError(
-        err instanceof Error ? err.message : "Could not load purchases.",
+        error instanceof Error ? error.message : "Could not load purchases.",
       );
     }
   };
@@ -63,17 +55,15 @@ function PurchaseItems() {
     const loadItems = async () => {
       if (!token) return;
 
-    
-
       try {
         setLoading(true);
 
         const data = await getPurchaseItems(token);
 
         setItems(Array.isArray(data) ? data : data.items || []);
-      } catch (err) {
+      } catch (error) {
         setError(
-          err instanceof Error ? err.message : "Could not load purchase items.",
+          error instanceof Error ? error.message : "Could not load purchase items.",
         );
       } finally {
         setLoading(false);
@@ -105,17 +95,17 @@ function PurchaseItems() {
       setForm({
         name: "",
         price: "",
-        category: "Other",
-        priority: "Medium",
+        category: "other",
+        priority: "medium",
         monthlyPayment: "",
         downPayment: "",
         notes: "",
       });
 
       await loadItems();
-    } catch (err) {
+    } catch (error) {
       setError(
-        err instanceof Error ? err.message : "Could not create purchase.",
+        error instanceof Error ? error.message : "Could not create purchase.",
       );
     }
   };
@@ -128,9 +118,9 @@ function PurchaseItems() {
     try {
       await deletePurchaseItem(token, id);
       await loadItems();
-    } catch (err) {
+    } catch (error) {
       setError(
-        err instanceof Error ? err.message : "Could not delete purchase.",
+        error instanceof Error ? error.message : "Could not delete purchase.",
       );
     }
   };
@@ -200,12 +190,13 @@ function PurchaseItems() {
                 onChange={(e) => setForm({ ...form, category: e.target.value })}
                 className="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-3 outline-none focus:border-indigo-500"
               >
-                <option>Vehicle</option>
-                <option>Technology</option>
-                <option>Home</option>
-                <option>Travel</option>
-                <option>Education</option>
-                <option>Other</option>
+                <option value="car">Vehicle</option>
+                <option value="home">Home</option>
+                <option value="technology">Technology</option>
+                <option value="travel">Travel</option>
+                <option value="education">Education</option>
+                <option value="entertainment">Entertainment</option>
+                <option value="other">Other</option>
               </select>
 
               <select
@@ -213,9 +204,10 @@ function PurchaseItems() {
                 onChange={(e) => setForm({ ...form, priority: e.target.value })}
                 className="w-full rounded-lg border border-slate-700 bg-slate-800 px-4 py-3 outline-none focus:border-indigo-500"
               >
-                <option>Low</option>
-                <option>Medium</option>
-                <option>High</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+
               </select>
 
               <input

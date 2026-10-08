@@ -14,6 +14,8 @@ const getPurchases = async (req, res) => {
 
     res.json(purchases);
   } catch (error) {
+    console.error("CREATE PURCHASE ERROR:", error);
+
     res.status(500).json({
       message: "Failed to retrieve purchases.",
       error: error.message,

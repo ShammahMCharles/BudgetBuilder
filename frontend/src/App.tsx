@@ -5,16 +5,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register.tsx";
 import Dashboard from "./pages/Dashboard";
 import Goals from "./pages/Goals";
-// import FinancialProfile from "./pages/FinancialProfile";
-// import PurchaseItems from "./pages/PurchaseItems";
-
-function FinancialProfile() {
-  return <h1>Financial Profile</h1>;
-}
-
-function PurchaseItems() {
-  return <h1>Purchase Items</h1>;
-}
+import FinancialProfile from "./pages/FinancialProfile";
+import PurchaseItems from "./pages/PurchaseItems";
 
 function App() {
   return (
@@ -27,9 +19,6 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/goals" element={<Goals />} />
-          {/* <Route path="/financial-profile" element={<FinancialProfile />} />
-          <Route path="/purchase-items" element={<PurchaseItems />} /> */}
-
           <Route path="/financial-profile" element={<FinancialProfile />} />
           <Route path="/purchase-items" element={<PurchaseItems />} />
         </Route>

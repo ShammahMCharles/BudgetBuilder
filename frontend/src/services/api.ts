@@ -94,7 +94,7 @@ export const createGoal = async (
     currentAmount: number;
     targetDate: string;
     category: string;
-  }
+  },
 ) => {
   const response = await fetch(`${API_URL}/budget-goals`, {
     method: "POST",
@@ -123,7 +123,7 @@ export const updateGoal = async (
     currentAmount: number;
     targetDate: string;
     category: string;
-  }
+  },
 ) => {
   const response = await fetch(`${API_URL}/budget-goals/${id}`, {
     method: "PUT",
@@ -175,9 +175,7 @@ export const getFinancialProfile = async (token: string) => {
   const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(
-      data.message || "Failed to retrieve financial profile."
-    );
+    throw new Error(data.message || "Failed to retrieve financial profile.");
   }
 
   return data;
@@ -191,7 +189,35 @@ export const saveFinancialProfile = async (
     savings: number;
     debt: number;
     emergencyFund: number;
+  },
+) => {
+  const response = await fetch(`${API_URL}/financial-profile`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(profile),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Failed to save financial profile.");
   }
+
+  return data;
+};
+
+export const updateFinancialProfile = async (
+  token: string,
+  profile: {
+    monthlyIncome: number;
+    monthlyExpenses: number;
+    savings: number;
+    debt: number;
+    emergencyFund: number;
+  },
 ) => {
   const response = await fetch(`${API_URL}/financial-profile`, {
     method: "PUT",
@@ -205,9 +231,7 @@ export const saveFinancialProfile = async (
   const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(
-      data.message || "Failed to save financial profile."
-    );
+    throw new Error(data.message || "Failed to update financial profile.");
   }
 
   return data;
@@ -244,7 +268,7 @@ export const createPurchaseItem = async (
     downPayment: number;
     purchased: boolean;
     notes: string;
-  }
+  },
 ) => {
   const response = await fetch(`${API_URL}/purchase-items`, {
     method: "POST",
@@ -264,10 +288,7 @@ export const createPurchaseItem = async (
   return data;
 };
 
-export const deletePurchaseItem = async (
-  token: string,
-  id: string
-) => {
+export const deletePurchaseItem = async (token: string, id: string) => {
   const response = await fetch(`${API_URL}/purchase-items/${id}`, {
     method: "DELETE",
     headers: {
