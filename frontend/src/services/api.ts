@@ -159,3 +159,127 @@ export const deleteGoal = async (token: string, id: string) => {
 
   return data;
 };
+
+// ===============================
+// FINANCIAL PROFILE
+// ===============================
+
+export const getFinancialProfile = async (token: string) => {
+  const response = await fetch(`${API_URL}/financial-profile`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message || "Failed to retrieve financial profile."
+    );
+  }
+
+  return data;
+};
+
+export const saveFinancialProfile = async (
+  token: string,
+  profile: {
+    monthlyIncome: number;
+    monthlyExpenses: number;
+    savings: number;
+    debt: number;
+    emergencyFund: number;
+  }
+) => {
+  const response = await fetch(`${API_URL}/financial-profile`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(profile),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message || "Failed to save financial profile."
+    );
+  }
+
+  return data;
+};
+
+// ===============================
+// PURCHASE ITEMS
+// ===============================
+
+export const getPurchaseItems = async (token: string) => {
+  const response = await fetch(`${API_URL}/purchase-items`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Failed to retrieve purchases.");
+  }
+
+  return data;
+};
+
+export const createPurchaseItem = async (
+  token: string,
+  item: {
+    name: string;
+    price: number;
+    category: string;
+    priority: string;
+    monthlyPayment: number;
+    downPayment: number;
+    purchased: boolean;
+    notes: string;
+  }
+) => {
+  const response = await fetch(`${API_URL}/purchase-items`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(item),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Failed to create purchase.");
+  }
+
+  return data;
+};
+
+export const deletePurchaseItem = async (
+  token: string,
+  id: string
+) => {
+  const response = await fetch(`${API_URL}/purchase-items/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Failed to delete purchase.");
+  }
+
+  return data;
+};
