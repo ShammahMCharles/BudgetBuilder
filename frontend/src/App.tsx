@@ -1,22 +1,12 @@
-
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
 
-function Login() {
-  return <h1>Login Page</h1>;
-}
-
-function Register() {
-  return <h1>Register Page</h1>;
-}
-
-function Dashboard() {
-  return <h1>BudgetBuilder Dashboard</h1>;
-}
-
-function Goals() {
-  return <h1>Budget Goals</h1>;
-}
+import Login from "./pages/Login";
+import Register from "./pages/Register.tsx";
+import Dashboard from "./pages/Dashboard";
+import Goals from "./pages/Goals";
+// import FinancialProfile from "./pages/FinancialProfile";
+// import PurchaseItems from "./pages/PurchaseItems";
 
 function FinancialProfile() {
   return <h1>Financial Profile</h1>;
@@ -31,17 +21,16 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
-
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
         <Route element={<ProtectedRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/goals" element={<Goals />} />
-          <Route
-            path="/financial-profile"
-            element={<FinancialProfile />}
-          />
+          {/* <Route path="/financial-profile" element={<FinancialProfile />} />
+          <Route path="/purchase-items" element={<PurchaseItems />} /> */}
+
+          <Route path="/financial-profile" element={<FinancialProfile />} />
           <Route path="/purchase-items" element={<PurchaseItems />} />
         </Route>
 
