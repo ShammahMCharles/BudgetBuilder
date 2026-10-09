@@ -1,5 +1,5 @@
 //We're establishing one central location for the backend URL rather than scattering it throughout the frontend code.
-const API_URL = "http://localhost:3000/api";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 
 export const registerUser = async (
   username: string,
